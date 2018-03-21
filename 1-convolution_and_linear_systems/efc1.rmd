@@ -140,6 +140,8 @@ Com cada elemento $h_{ij} = 0$ para todo $i, j$ se $i - j < 0$ ou $i - j \geq D$
 
 ## c)
 
+Como:
+
 \begin{equation}
 x[n] = s[n] - 0.5 s[n-1]
 \end{equation}
@@ -177,11 +179,7 @@ Temos:
 Portanto a resposta combinada é:
 
 \begin{equation}
-\mathbf{W} \mathbf{H} = \mathbf{I}
-\end{equation}
-
-\begin{equation}
-\mathbf{I} = \mathbf{W}\mathbf{H} = 
+\mathbf{W}\mathbf{H} = \mathbf{I} = 
 \begin{bmatrix}
     1 & 0 & \cdots & 0 \\
     0 & 1 & \cdots & 0 \\
@@ -189,6 +187,8 @@ Portanto a resposta combinada é:
     0 & 0 & \cdots & 1 \\
 \end{bmatrix}
 \end{equation}
+
+E a saída do sistema é:
 
 \begin{equation}
     \mathbf{y} = \mathbf{I} \mathbf{s} = \mathbf{s}
@@ -234,6 +234,8 @@ print("w1:", '\n', conv(w1, h))
 print("w2:", '\n', conv(w2, h))
 ```
 
+Estamos buscando construir um sistema (com resposta ao impulso $w[n]$, e entrada $x[n]$) que devolva um sinal o mais semelhante possível com o sinal inicial sem o ruído (sinal $s[n]$). Como h é a resposta quando $s[n] = \delta[n]$ então a saída $y$ deveria ser igual a $\delta[n]$ ($w[n] = 1$ para $n = 0$ e $w[n] = 0$ para $n \neq 0$).
+
 O filtro w1 apresentou uma resposta muito próxima ao ideal (valor 1 em n = 0, e zero para todos os outros valores de n). Já o filtro w2 não apresentou uma boa resposta.
 
 \break\vfill
@@ -258,9 +260,12 @@ markerline1, stemlines1, baseline = plt.stem(n, s, '-.')
 markerline2, stemlines2, baseline = plt.stem(n, x[:-1], '-.')
 plt.setp(baseline, 'color', 'r', 'linewidth', 1)
 plt.setp(stemlines1, 'color', 'b', 'linewidth', 0.5)
-plt.setp(stemlines2, 'color', 'r', 'linewidth', 0.5)
+plt.setp(stemlines2, 'color', 'g', 'linewidth', 0.5)
 plt.setp(markerline1, 'color', 'b', 'linewidth', 1)
-plt.setp(markerline2, 'color', 'r', 'linewidth', 1)
+plt.setp(markerline2, 'color', 'g', 'linewidth', 1)
+
+plt.xlabel('n')
+plt.legend(['s[n]', 'x[n]'], loc=1)
 
 plt.show()
 ```
@@ -273,6 +278,7 @@ y2 = conv(w2,x)
 ```
 
 ```{python}
+plt.clf()
 n = np.linspace(0, 99, 100)
 markerline1, stemlines1, baseline = plt.stem(n, s, '-.')
 markerline2, stemlines2, baseline = plt.stem(n, y1[:100], '-.')
@@ -282,9 +288,14 @@ plt.setp(stemlines2, 'color', 'r', 'linewidth', 0.5)
 plt.setp(markerline1, 'color', 'b', 'linewidth', 1)
 plt.setp(markerline2, 'color', 'r', 'linewidth', 1)
 
+plt.title('Filtro w1')
+plt.xlabel('n')
+plt.legend(['s[n]', 'y1[n]'], loc=1)
+
 plt.show()
 ```
 ```{python}
+plt.clf()
 markerline1, stemlines1, baseline = plt.stem(n, s, '-.')
 markerline2, stemlines2, baseline = plt.stem(n, y2[:100], '-.')
 plt.setp(baseline, 'color', 'r', 'linewidth', 1)
@@ -293,8 +304,13 @@ plt.setp(stemlines2, 'color', 'r', 'linewidth', 0.5)
 plt.setp(markerline1, 'color', 'b', 'linewidth', 1)
 plt.setp(markerline2, 'color', 'r', 'linewidth', 1)
 
+plt.title('Filtro w2')
+plt.xlabel('n')
+plt.legend(['s[n]', 'y2[n]'], loc=3)
+
 plt.show()
 ```
+Com base nos gráficos a saída que mais se aparenta com $s[n]$ é a saída $y1[n]$ (distância entre os pontos de $y[n]$ e $s[n]$ para um mesmo n é menor para $y[n] = y1[n]$).
 
 ## h)
 
@@ -310,6 +326,8 @@ print("MSE de y1: ", mse(s,y1))
 print("MSE de y2: ", mse(s,y2))
 ```
 
+Com base nos valore para o MSE, podemos ver que a saída $y2[n]$ é muito mais próxima da entrada $s[n]$ do que a saída $y2[n]$ (erro entre a saída e o sinal $s$ é menor para $y2$).
+
 ## i)
 
-O filtro w1. Tanto pelos gráficos, quanto pelo resultado do MSE, temos que o filtro w1 obtém resultados muito melhores na tarefa de aproximar a saída y em relação à entrada s.
+O filtro w1 é mais adequado na tarefa de equalização. Tanto pelos gráficos, quanto pelo resultado do MSE, temos que o filtro $w1$ obtém resultados muito melhores na tarefa de aproximar a saída $y[n]$ em relação à entrada $s[n]$.
