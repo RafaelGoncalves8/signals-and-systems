@@ -37,8 +37,7 @@ N = 1000;
 
 % c)
 
-scale = @(Y) max(Y(200:400))/1;
-scale(Y)
+scale = @(Y) max(Y(1,200:400))/1;
 
 % d)
 
@@ -47,13 +46,13 @@ S = [];
 
 for i = 0:200,
     X = [];
-    w = i*(pi/200);
-    for i = 0:N,
-        X(i+1) = x(i,w);
+    w = i*(pi/200)
+    for j = 0:N,
+        X(j+1) = x(j,w);
     end;
     Y = sistema_desconhecido(X);
     S(i+1) = scale(Y);
-    S(i+1)
 end;
+S
 
 stem(S)
