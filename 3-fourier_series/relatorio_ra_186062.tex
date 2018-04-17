@@ -1,0 +1,88 @@
+\documentclass{article}
+\setlength\parindent{24pt}
+\usepackage[margin=1in]{geometry}
+\usepackage{indentfirst}
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage[utf8]{inputenc}
+
+\begin{document}
+
+\title{EA614 - Análise de Sinais \\
+\large{EFC3 - Série de Fourier}}
+\author{Rafael Gonçalves (186062)}
+\date{\today}
+
+\maketitle
+
+\section{Parte Computacional}
+
+a)
+
+No caso de $x(t)$ temos:
+
+\begin{equation}
+a_{k} = \frac{1}{T}\int_{\frac{-T}{2}}^{\frac{T}{2}}x(t)e^{-jk\omega_{0}t}dt = \frac{1}{T}\int_{\frac{-T}{2}}^{\frac{T}{2}}\frac{2}{T}te^{-jk\omega_{0}t}dt
+\end{equation}
+
+$T = 4s$ então podemos escrever como:
+
+\begin{equation}
+    a_k = \frac{2}{T^{2}}\int_{-2}^{2}te^{-jk\omega_{0}t}dt
+\end{equation}
+
+Para $k = 0$:
+
+\begin{equation}
+    a_0 = \frac{2}{T^{2}}\int_{-2}^{2}te^{0}dt = \frac{2}{T^{2}}\int_{-2}^{2}tdt 
+\end{equation}
+
+\begin{equation}
+    a_0 = 0
+\end{equation}
+
+Para $k \neq 0$ podemos resolver por partes:
+
+\begin{center}
+    $\int u dv = u v - \int v du$\break
+
+    $u = t ; \quad  du = dt$\break
+
+   $v = \frac{-e^{jk\omega_0t}}{jk\omega_0}; \quad dv = e^{jk\omega_0t}dt$
+\end{center}
+
+Então:
+
+\begin{equation}
+    \int te^{-jk\omega_{0}t}dt = -t \frac{e^{jk\omega_0t}}{jk\omega_0} + \int \frac{e^{jk\omega_0t}}{jk\omega_0} dt 
+\end{equation}
+
+\begin{equation}
+    a_k = \frac{2}{T^2} \left ( \left [ - t\frac{e^{jk\omega_0t}}{jk\omega_0} \right ]_{-2}^2 + \int_{-2}^2 \frac{e^{jk\omega_0t}}{jk\omega_0}dt \right )= \frac{2}{T^2} \left [ \frac{e^{jk\omega_0t}}{jk\omega_0} \left ( t + \frac{1}{jk\omega_0} \right ) \right ] _{-2}^2
+\end{equation}
+
+\begin{equation}
+    a_k = \frac{2}{T^2} \left [ \frac{-2}{jk\omega_0} \left ( e^{jk\omega_0 2} + e^{-jk\omega_0 2} \right ) + \frac{-1}{k^2 \omega_0 ^2} \left ( e^{jk\omega_0 2} - e^{-jk\omega_0 2} \right ) \right ]
+\end{equation}
+
+Usando a fórmula de Euler temos:
+
+\begin{center}
+    $\omega_0 = \frac{2\pi}{T}$ e $T = 4s$
+\end{center}
+
+\begin{equation}
+    a_k = \frac{2}{4^2} \left [ \frac{-8}{jk\pi}\cos(\pi k) - \frac{4j}{k^2 \pi^2}\sin(\pi k) \right ]
+\end{equation}
+
+\begin{equation}
+    ak = \frac{2j}{k \pi} \cos(k \pi)
+\end{equation}
+
+\break\vfill
+
+
+
+b)
+
+\end{document}
