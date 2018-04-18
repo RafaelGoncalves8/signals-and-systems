@@ -1,10 +1,35 @@
 \documentclass{article}
 \setlength\parindent{24pt}
-\usepackage[margin=1in]{geometry}
+\usepackage[margin=0.6in]{geometry}
 \usepackage{indentfirst}
 \usepackage{amsmath}
+\usepackage{graphicx}
 \usepackage{float}
 \usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{enumerate}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=Matlab,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=4
+}
 
 \begin{document}
 
@@ -17,8 +42,8 @@
 
 \section{Parte Computacional}
 
-a)
-
+\begin{enumerate}[(a)]
+    \item
 No caso de $x(t)$ temos:
 
 \begin{equation}
@@ -31,17 +56,17 @@ $T = 4s$ então podemos escrever como:
     a_k = \frac{2}{T^{2}}\int_{-2}^{2}te^{-jk\omega_{0}t}dt
 \end{equation}
 
-Para $k = 0$:
+Para $k = 0$ (nível DC):
 
 \begin{equation}
     a_0 = \frac{2}{T^{2}}\int_{-2}^{2}te^{0}dt = \frac{2}{T^{2}}\int_{-2}^{2}tdt 
 \end{equation}
 
-\begin{equation}
-    a_0 = 0
-\end{equation}
+\[
+    \boxed{a_0 = 0}
+\]
 
-Para $k \neq 0$ podemos resolver por partes:
+Para $k \neq 0$ podemos resolver a integração por partes:
 
 \begin{center}
     $\int u dv = u v - \int v du$\break
@@ -50,7 +75,6 @@ Para $k \neq 0$ podemos resolver por partes:
 
    $v = \frac{-e^{jk\omega_0t}}{jk\omega_0}; \quad dv = e^{jk\omega_0t}dt$
 \end{center}
-
 Então:
 
 \begin{equation}
@@ -65,6 +89,7 @@ Então:
     a_k = \frac{2}{T^2} \left [ \frac{-2}{jk\omega_0} \left ( e^{jk\omega_0 2} + e^{-jk\omega_0 2} \right ) + \frac{-1}{k^2 \omega_0 ^2} \left ( e^{jk\omega_0 2} - e^{-jk\omega_0 2} \right ) \right ]
 \end{equation}
 
+
 Usando a fórmula de Euler temos:
 
 \begin{center}
@@ -72,17 +97,122 @@ Usando a fórmula de Euler temos:
 \end{center}
 
 \begin{equation}
-    a_k = \frac{2}{4^2} \left [ \frac{-8}{jk\pi}\cos(\pi k) - \frac{4j}{k^2 \pi^2}\sin(\pi k) \right ]
+    a_k = \frac{2}{4^2} \left [ \frac{-4 \cdot 2}{jk\pi}\cos(\pi k) - \frac{4j}{k^2 \pi^2}\sin(\pi k) \right ]
 \end{equation}
 
-\begin{equation}
-    ak = \frac{2j}{k \pi} \cos(k \pi)
-\end{equation}
+\[
+    \boxed{a_k = \frac{j}{k \pi} \cos(k \pi)}
+\]
 
 \break\vfill
 
+\item
+A função implementada (plot\_fourier) retorna a aproximação por série de fourier (dado número de aproximações N, coeficientes a, intervalo de tempo t e frequência w0). Além disso a mesma função será usada no próximo item para plotar os gráficos da aproximação por meio da variável de controle (plot\_var = 1).
 
+\begin{lstlisting}
+t = -2:0.0001:2;
+T = 4;
+a = @(k) (i*cos(k*pi))/(k*pi);
+w0 = 2*pi/T;
 
-b)
+function X = plot_fourier(N, a, t, w0, plot_var),
+    X = zeros(size(t));
+    for k = 1:N,
+        X = X + a(k)*exp(i*k*w0*t);
+        X = X + a(-k)*exp(i*(-k)*w0*t);
+    end;
+    if plot_var == 1,
+        plot(t, X)
+        xlabel ("t");
+        title (["Serie de Fourier com ", num2str(N), " termos"]);
+    end;
+end;
+\end{lstlisting}
 
+\item
+
+ Gráficos com a função dente de serra e as aproximações (respectivamente N = 1, 10, 20 e 50).
+
+ \begin{figure}[h!]
+ \centering
+ \includegraphics[width=0.5\textwidth]{images/plot_n1.png}
+     \caption{Aproximação por série de Fourier com N = 1}
+ \end{figure}
+
+ \begin{figure}[h!]
+ \centering
+ \includegraphics[width=0.5\textwidth]{images/plot_n10.png}
+     \caption{Aproximação por série de Fourier com N = 10}
+ \end{figure}
+
+ \begin{figure}[h!]
+ \centering
+ \includegraphics[width=0.5\textwidth]{images/plot_n20.png}
+     \caption{Aproximação por série de Fourier com N = 20}
+ \end{figure}
+
+ \begin{figure}[h!]
+ \centering
+ \includegraphics[width=0.5\textwidth]{images/plot_n50.png}
+     \caption{Aproximação por série de Fourier com N = 50}
+ \end{figure}
+
+\break
+\vspace*{\fill}
+\break
+
+\item 
+    Os erros ($\frac{\sum\limits _{k = -N} ^{N} (x(t) - x_N(t))^2}{2N+1}$) encontrados pelo programa para $E_N$ onde N é o número do último termo da série de fourier (ou seja, série de fourier calculada para $-N \leq k \leq N$):
+\hfill\break
+
+$E_1 = 5228.6$
+
+$E_{10} = 772.39$
+
+$E_{20} = 396.32$
+
+$E_{50} = 161.51$
+
+\break\hfill
+
+\item
+
+Gráfico do módulo dos coeficientes $a_k$ em função de $\omega = 2 \pi k$:
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.5\textwidth]{images/ak_x_w.png}
+    \caption{Gráfico do módulo de $a_k$ por $\omega$}
+\end{figure}
+
+\item
+
+Sendo:
+
+\begin{equation}
+    \omega_C = \frac{1}{RC} = 10 \frac{rad}{s}
+\end{equation}
+
+\begin{equation}
+    H(j \omega) = \frac{1}{1 - \left ( \frac{\omega_C}{\omega} \right )}
+\end{equation}
+
+Temos que a resposta em frequência é dada graficamente por:
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.5\textwidth]{images/abs_x_w.png}
+    \caption{Gráfico do módulo de $H(j\omega)$ por $\omega$}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.5\textwidth]{images/arg_x_w.png}
+    \caption{Gráfico da fase de $H(j\omega)$ por $\omega$}
+\end{figure}
+
+\item
+O gráfico plotado é um filtro passa baixa.
+
+\end{enumerate}
 \end{document}
