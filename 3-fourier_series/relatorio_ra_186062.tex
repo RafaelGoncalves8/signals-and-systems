@@ -180,13 +180,15 @@ $E_{50} = 0.0040375$
 
 \item
 
-Gráfico do módulo dos coeficientes $a_k$ em função de $\omega = 2 \pi k$:
+Gráfico do módulo dos coeficientes $a_k$ em função de $\omega = k \omega _0$:
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.5\textwidth]{images/ak_x_w.png}
     \caption{Gráfico do módulo de $a_k$ por $\omega$}
 \end{figure}
+
+A simetria observada é par, ou seja, $a_k = a_{-k}$.
 
 \item
 
@@ -217,7 +219,8 @@ Temos que a resposta em frequência é dada graficamente por:
 O gráfico plotado é um filtro passa alta (como visto no gráfico do modulo, o ganho é maior para frequências maiores).
 
 \item
-Gráfico da saída $y(t)$ quando $x(t)$ é o sinal dente de serra:
+    Tendo em vista que ao passar um sinal de entrada do tipo $x(t) = Ae^{j\omega t}$ em um sistema LIT, a saída será a mesma entrada multiplicada pela resposta em frequência $H(j\omega)$. Então temos $y(t) = H(j\omega)x_N(t) = \sum\limits _{k = -N} ^{N} H(jk\omega _0)a_ke^{jk\omega _0 t}$
+Gráfico da saída $y(t)$ quando $x(t)$ é a aproximação do sinal dente de serra com N=50:
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.5\textwidth]{images/y.png}
