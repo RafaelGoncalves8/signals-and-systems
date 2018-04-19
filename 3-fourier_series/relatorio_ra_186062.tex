@@ -9,6 +9,7 @@
 \usepackage{listings}
 \usepackage{color}
 \usepackage{enumerate}
+\usepackage[portuguese]{babel}
 
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
@@ -30,6 +31,8 @@
   breakatwhitespace=true,
   tabsize=4
 }
+
+\renewcommand{\baselinestretch}{1.0}
 
 \begin{document}
 
@@ -162,16 +165,16 @@ end;
 \break
 
 \item 
-    Os erros ($\frac{\sum\limits _{k = -N} ^{N} (x(t) - x_N(t))^2}{2N+1}$) encontrados pelo programa para $E_N$ onde N é o número do último termo da série de fourier (ou seja, série de fourier calculada para $-N \leq k \leq N$):
+    Os erros $\left ( \frac{\sum\limits _{k = -N} ^{N} (x(t) - x_N(t))^2}{2N+1} \right )$ encontrados pelo programa para $E_N$ onde N é o número do último termo da série de fourier (ou seja, série de fourier calculada para $-N \leq k \leq N$):
 \hfill\break
 
-$E_1 = 5228.6$
+$E_1 = 0.13071$
 
-$E_{10} = 772.39$
+$E_{10} = 0.019309$
 
-$E_{20} = 396.32$
+$E_{20} = 0.0099078$
 
-$E_{50} = 161.51$
+$E_{50} = 0.0040375$
 
 \break\hfill
 
@@ -211,8 +214,17 @@ Temos que a resposta em frequência é dada graficamente por:
     \caption{Gráfico da fase de $H(j\omega)$ por $\omega$}
 \end{figure}
 
+O gráfico plotado é um filtro passa alta (como visto no gráfico do modulo, o ganho é maior para frequências maiores).
+
 \item
-O gráfico plotado é um filtro passa baixa.
+Gráfico da saída $y(t)$ quando $x(t)$ é o sinal dente de serra:
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.5\textwidth]{images/y.png}
+    \caption{Gráfico da resposta do sinal $x(t)$ após passar pelo filtro RC}
+\end{figure}
+    Só passaram as frequências mais altas e portanto o sinal ficou achatado no centro (majoritariamente próximo ao zero, pois os termos de frequência menor são responsáveis pela forma "macro" do sinal) enquanto que o sinal todo continua apresentando os "ruídos" causados pelos termos de alta frequência (percebidos sobretudo nas bordas).
+
 
 \end{enumerate}
 \end{document}
