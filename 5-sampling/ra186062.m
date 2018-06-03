@@ -24,14 +24,13 @@ espectro(ydec);
 
 soundsc(y, Fs);
 soundsc(ydec, Fs_dec);
+% wavwrite(y, Fs, "y.wav");
+% wavwrite(ydec, Fs_dec, "y_dec.wav");
 
 # e)
 espectro(kaiser(0.45,2));
-input('>');
 espectro(kaiser(0.45,0.5));
-input('>');
 espectro(kaiser(1.5,2));
-input('>');
 
 # f)
 h = kaiser(0.45, 0.5);
@@ -39,7 +38,7 @@ z = conv(h, y);
 
 espectro(z);
 soundsc(z, Fs);
-input('>');
+% wavwrite(z, Fs, "y_fpb.wav");
 
 # g)
 
@@ -50,5 +49,6 @@ end;
 
 espectro(z_dec);
 soundsc(z_dec, Fs_dec); 
+% wavwrite(z_dec, Fs_dec, "y_dec_fbp.wav");
 
 input('>');
