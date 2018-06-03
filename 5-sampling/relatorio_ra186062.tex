@@ -67,12 +67,12 @@
         \caption{Espectro de frequência $Y_{dec}(j\Omega)$ em função de $\Omega$}
     \end{figure}
 
-        Embora o perfil do espectro seja similar ao do sinal original, têm-se a impressão de que foi adicionado um ruído em todas as frequências (valor de $Y_{dec}(j\Omega)$ é maior que 0.1 em para praticamente todos os valores de $\Omega$). Há uma distorção bastante perceptível para as frequências altas que eram praticamente nulas no espectro original. Esse ruído também é percebido pois há uma consistencia menor do sinal, enquanto que a curva original era mais bem definida, nesta há uma ocorrência maior de vales e picos durante todo o espectro.
+        Embora o perfil do espectro seja similar ao do sinal original, têm-se a impressão de que foi adicionado um ruído em todas as frequências (valor de $Y_{dec}(j\Omega)$ é maior que 0.1 em para praticamente todos os valores de $\Omega$, por exemplo). Há uma distorção bastante perceptível para as frequências altas que eram praticamente nulas no espectro original. Esse ruído também é percebido pois há uma consistencia menor do sinal, enquanto que a curva original era mais bem definida, nesta há uma ocorrência maior de vales e picos durante todo o espectro (em especial nas frequências menores).
 
 \break\vfill
 
 \item
-    O sinal subamostrado tem um som "abafado" quando comparado com o original. Há uma dificuldade maior em distinguir os sons (instrumentos, voz) por conta destes aparecerem com um chiado. 
+    O sinal subamostrado tem um som "abafado" quando comparado com o original. Também parece haver uma diminuição dos graves (baixas frequências) em relação aos agudos (altas frequências). Há uma dificuldade maior em distinguir os sons (instrumentos, voz) por conta destes aparecerem com um chiado. 
 
 \item
     Gráficos das respostas em frequência $h(t)$:
@@ -108,7 +108,8 @@
         \caption{$y(t)$ aplicado o filtro Kaiser $\omega_p = 0.45$ e $\omega_r = 0.5$}
     \end{figure}
 
-    Após aplicado o filtro, há 
+    O espectro resultante é praticamente o sinal original com as frequências entre $\Omega = 0.5 \text{ e } \Omega = 2\pi - 0.5$ removido.
+    Após aplicado o filtro, há uma redução dos agudos e o som parece mais "abafado" se comparado ao sinal original.
 
 \item
     Gráfico da respostas em frequência de $h(t)*y(t)$ com M = 6:
@@ -119,7 +120,9 @@
         \caption{$y(t)$ amostrado com M=6 após ter sido aplicado o filtro Kaiser $\omega_p = 0.45$ e $\omega_r = 0.5$}
     \end{figure}
 
-    O som continua abafado, porém houve redução do chiado (som parece mais "limpo"), fica mais fácil identificar os sons da voz e dos instrumentos.
+    O espectro ainda distorceu o sinal original, aumentando a quantidade de picos e vales, porém desta vez não contém frequências muito altas ($\Omega \text{ muito próximo de } \pi$). Há esse ruído que continua bastante perceptível sobretudo para as baixas frequências.
+
+    O som continua "abafado", porém houve redução do chiado (som parece mais "limpo") se comparado ao sinal subamostrado sem o uso do filtro.Também comparando esses sinais, nesse com o filtro, fica mais fácil identificar os sons da voz e dos instrumentos.
 
 \end{enumerate}
 \end{document}
