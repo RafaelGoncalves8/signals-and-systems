@@ -97,7 +97,7 @@
 
 \item
 
-    $X[k]$ representa o mesmo sinal $X(e^{j\Omega})$ amostrado em N pontos igualmente espaçados entre todo o espectro que não se repete (ou seja, N pontos entre $\Omega = 0$ até $\Omega = 2\pi$). No caso específico do plot acima, a amostragem coincidiu com o ponto de frequência mais expressivo de $X(e^{j\Omega})$ sendo nulo nos outros pontos. Portanto o sinal $X[k]$ representa bem o sinal original.
+    $X[k]$ representa o mesmo sinal $X(e^{j\Omega})$ amostrado em N pontos igualmente espaçados entre todo o espectro que não se repete (ou seja, N pontos entre $\Omega = 0$ até $\Omega = 2\pi$). No caso específico do plot acima, a amostragem coincidiu com o ponto de frequência mais expressivo de $X(e^{j\Omega})$ sendo nulo nos outros pontos. Portanto o sinal $X[k]$ representa bem o sinal original da senóide pura.
 
 \item
 
@@ -114,6 +114,8 @@ Gráficos com $f_0 = 3.4$ Hz:
 \includegraphics[width=0.5\textwidth]{images/xk_xejomega_3-4.png}
     \caption{$X[k]$ e $X(e^{j\Omega})$ em função de $\Omega$}
 \end{figure}
+
+O espectro $X[k]$ obtido não representa bem uma senóide pura. A senóide pura deveria ter seu sinal no domínio da frequência representado por um único ponto não nulo (entre $0$ e $\pi$) para a variável $k$. O vazamento de frequências (frequências não nulas em outros pontos do eixo $k$ - ou neste caso no eixo $\Omega$) ocorre pois a taxa de amostragem escolhida para a DFT (N = 64) não é adequada para representar o sinal. O sinal recuperado no eixo do tempo (após a DFT inversa) terá deformações (aliasing) fruto dessas frequências indesejadas.
 
 
 \end{enumerate}
